@@ -5,24 +5,28 @@ import './styles/index.css'
 import {ApolloClient, ApolloProvider, createNetworkInterface} from 'react-apollo'
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws'
 
+// looks like: wss://subscriptions.graph.cool/v1/<project-id>
+const subscriptionsUrl = ''
 
-const wsClient = new SubscriptionClient('wss://subscriptions.graph.cool/v1/cj53xiqyga8sy0196crc7flcf', {
-  reconnect: true
+// looks like: https://api.graph.cool/simple/v1/<project-id>
+const graphQLEndpoint = ''
+
+const subscriptionsClient = new SubscriptionClient(subscriptionsUrl, {
+  reconnect: true,
 })
 
 const networkInterface = createNetworkInterface({
-  uri: 'https://api.graph.cool/simple/v1/cj53xiqyga8sy0196crc7flcf'
+  uri: graphQLEndpoint
 })
 
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
   networkInterface,
-  wsClient
+  subscriptionsClient
 )
 
 const client = new ApolloClient({
   networkInterface: networkInterfaceWithSubscriptions
 })
-
 
 ReactDOM.render(
   <ApolloProvider client={client}>
