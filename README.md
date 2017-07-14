@@ -13,7 +13,7 @@ type Person {
 
 type Message {
   text: String!
-  sentBy: Person! @relation(name: "UserMessages")
+  sentBy: Person @relation(name: "UserMessages")
 }
 ```
 
